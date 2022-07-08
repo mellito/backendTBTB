@@ -1,5 +1,5 @@
 function handleError(app) {
-  app.use((err, _req, res, _next) => {
+  app.use((err, req, res, next) => {
     const erroStatus = err.statusCode || 500;
     const errorMessages = err.messages || "Server error";
     return res.status(erroStatus).json({
