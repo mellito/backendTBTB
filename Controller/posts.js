@@ -11,7 +11,7 @@ async function getAllPosts(req, res, next) {
 
 async function insertPost(req, res, next) {
   try {
-    insertP(req.body);
+    await insertP(req.body);
     res.status(201).json("post created");
   } catch (error) {
     next(error);

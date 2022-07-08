@@ -11,10 +11,10 @@ async function getAllTags(req, res, next) {
 
 async function insertTag(req, res, next) {
   try {
-    insertT(req.body);
-    res.status(201).json("tag created");
+    await insertT(req.body);
+    return res.status(201).json("tag created");
   } catch (error) {
-    next(error);
+    return next(error);
   }
 }
 
