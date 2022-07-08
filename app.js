@@ -1,13 +1,18 @@
 const express = require("express");
+const dotenv = require("dotenv");
 const configExpress = require("./config/express");
-const configMysql = require("./config/mysql");
+const { connectDB } = require("./config/dbConnection");
 const handleError = require("./utils/handleError");
 const routes = require("./routes");
 
 const app = express();
 
+if (process.env.NODE_ENV !== "production") {
+  dotenv.config();
+}
+
 configExpress(app);
-configMysql(app);
+connectDB();
 routes(app);
 handleError(app);
 

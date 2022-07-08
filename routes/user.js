@@ -1,15 +1,19 @@
 const { Router } = require("express");
-const router = Router();
-const {
-  getallBooks,
-  insertBooks,
-  deleteBook,
-  updateBook,
-} = require("../controller/user");
 
-router.get("/", getallBooks);
-router.post("/", insertBooks);
-router.delete("/:id", deleteBook);
-router.put("/:id", updateBook);
+const router = Router();
+
+const {
+  getAllTags,
+  insertTags,
+  updateTag,
+  deleteTag,
+  getOneTag,
+} = require("../controller/tags");
+
+router.get("/", getAllTags);
+router.post("/", insertTags);
+router.put("/:id", updateTag);
+router.delete("/:id", deleteTag);
+router.get("/:id", getOneTag);
 
 module.exports = router;
