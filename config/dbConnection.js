@@ -1,12 +1,14 @@
 const { Sequelize } = require("sequelize");
 
-console.log(process.env.MYSQL_USER);
-const db = new Sequelize("POST_DATABASE_TBTB", "root", "@Alexism321", {
-  host: "localhost",
-  dialect: "mysql",
-});
-
-db.sync();
+const db = new Sequelize(
+  process.env.MYSQL_DATABASE_NAME,
+  process.env.MYSQL_USER,
+  process.env.MYSQL_PASSWORD,
+  {
+    host: process.env.HOST,
+    dialect: "mysql",
+  },
+);
 
 const connectDB = async () => {
   try {

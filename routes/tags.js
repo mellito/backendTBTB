@@ -4,14 +4,14 @@ const router = Router();
 
 const {
   getAllTags,
-  insertTags,
+  insertTag,
   updateTag,
   deleteTag,
   getOneTag,
-} = require("../controller/tags");
+} = require("../Controller/tags");
 
 router.get("/", getAllTags);
-router.post("/", insertTags);
+router.post("/", insertTag);
 router.put("/:id", updateTag);
 router.delete("/:id", deleteTag);
 router.get("/:id", getOneTag);

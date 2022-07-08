@@ -1,16 +1,21 @@
 const { DataTypes } = require("sequelize");
 const { db } = require("../config/dbConnection");
 
-const TagsSchema = db.define("tags", {
+const PostSchema = db.define("posts", {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
   },
-  name_tag: {
+  title: {
     type: DataTypes.STRING,
     allowNull: false,
     unique: true,
+    trim: true,
+  },
+  description_post: {
+    type: DataTypes.STRING,
+    allowNull: false,
     trim: true,
   },
   createdAt: {
@@ -25,4 +30,4 @@ const TagsSchema = db.define("tags", {
   },
 });
 
-module.exports = TagsSchema;
+module.exports = PostSchema;

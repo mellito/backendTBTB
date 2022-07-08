@@ -9,7 +9,7 @@ async function getAllTags(req, res, next) {
   }
 }
 
-async function insertTags(req, res, next) {
+async function insertTag(req, res, next) {
   try {
     await TagModel.create(req.body);
     res.json("tag created");
@@ -20,8 +20,9 @@ async function insertTags(req, res, next) {
 
 async function updateTag(req, res, next) {
   try {
+    const updatedData = { ...req.body, updatedAt: new Date() };
     const { id } = req.params;
-    await TagModel.update(req.body, {
+    await TagModel.update(updatedData, {
       where: { id },
     });
     res.json("tag updated");
@@ -68,4 +69,4 @@ async function getOneTag(req, res, next) {
   }
 }
 
-module.exports = { getAllTags, insertTags, updateTag, deleteTag, getOneTag };
+module.exports = { getAllTags, insertTag, updateTag, deleteTag, getOneTag };
