@@ -1,14 +1,8 @@
-const {
-  allTags,
-  insertT,
-  oneTag,
-  updateT,
-  deleteT,
-} = require("../service/tags");
+const { allT, insertT, oneT, updateT, deleteT } = require("../service/tags");
 
 async function getAllTags(req, res, next) {
   try {
-    const tags = await allTags();
+    const tags = await allT();
     res.json(tags);
   } catch (error) {
     next(error);
@@ -27,7 +21,7 @@ async function insertTag(req, res, next) {
 async function updateTag(req, res, next) {
   try {
     const { id } = req.params;
-    const searchTag = await oneTag(id);
+    const searchTag = await oneT(id);
     if (searchTag === null) {
       const error = new Error("tag not found");
       error.statusCode = 404;
@@ -44,7 +38,7 @@ async function updateTag(req, res, next) {
 async function deleteTag(req, res, next) {
   try {
     const { id } = req.params;
-    const searchTag = await oneTag(id);
+    const searchTag = await oneT(id);
     if (searchTag === null) {
       const error = new Error("tag not found");
       error.statusCode = 404;
@@ -61,7 +55,7 @@ async function deleteTag(req, res, next) {
 async function getOneTag(req, res, next) {
   try {
     const { id } = req.params;
-    const searchTag = await oneTag(id);
+    const searchTag = await oneT(id);
     if (searchTag === null) {
       const error = new Error("tag not found");
       error.statusCode = 404;

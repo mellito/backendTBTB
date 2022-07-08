@@ -42,7 +42,7 @@ describe("tags endpoint", () => {
   it("should not delete a tag", async () => {
     const response = await request.delete("/api/tags/100");
     expect(response.status).toBe(404);
-    expect(response.body.message).toBe("Tag not found");
+    expect(response.body.message).toBe("tag not found");
   });
   it("should not update a tag", async () => {
     const tag = {
@@ -50,6 +50,6 @@ describe("tags endpoint", () => {
     };
     const response = await request.put("/api/tags/100").send(tag);
     expect(response.status).toBe(404);
-    expect(response.body.message).toBe("Tag not found");
+    expect(response.body.message).toBe("tag not found");
   });
 });

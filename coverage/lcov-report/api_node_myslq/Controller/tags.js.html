@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.11% </span>
+                <span class="strong">85.71% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>62/72</span>
+                <span class='fraction'>60/70</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.11% </span>
+                <span class="strong">85.71% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>62/72</span>
+                <span class='fraction'>60/70</span>
             </div>
         
             
@@ -133,9 +133,7 @@
 <a name='L68'></a><a href='#L68'>68</a>
 <a name='L69'></a><a href='#L69'>69</a>
 <a name='L70'></a><a href='#L70'>70</a>
-<a name='L71'></a><a href='#L71'>71</a>
-<a name='L72'></a><a href='#L72'>72</a>
-<a name='L73'></a><a href='#L73'>73</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L71'></a><a href='#L71'>71</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -155,23 +153,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -206,12 +187,27 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const TagModel = require("../models/Tag");
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const { allT, insertT, oneT, updateT, deleteT } = require("../service/tags");
 &nbsp;
 async function getAllTags(req, res, next) {
   try {
-    const tags = await TagModel.findAll();
+    const tags = await allT();
     res.json(tags);
   } <span class="branch-0 cbranch-no" title="branch not covered" >catch (error) {</span>
 <span class="cstat-no" title="statement not covered" >    next(error);</span>
@@ -220,7 +216,7 @@ async function getAllTags(req, res, next) {
 &nbsp;
 async function insertTag(req, res, next) {
   try {
-    await TagModel.create(req.body);
+    insertT(req.body);
     res.status(201).json("tag created");
   } <span class="branch-0 cbranch-no" title="branch not covered" >catch (error) {</span>
 <span class="cstat-no" title="statement not covered" >    next(error);</span>
@@ -229,32 +225,32 @@ async function insertTag(req, res, next) {
 &nbsp;
 async function updateTag(req, res, next) {
   try {
-    const updatedData = { ...req.body, updatedAt: new Date() };
     const { id } = req.params;
-    await TagModel.update(updatedData, {
-      where: { id },
-    });
-    res.json("tag updated");
+    const searchTag = await oneT(id);
+    if (searchTag === null) {
+      const error = new Error("tag not found");
+      error.statusCode = 404;
+      return next(error);
+    }
+    const updatedData = { ...req.body, updatedAt: new Date() };
+    await updateT(id, updatedData);
+    return res.json("tag updated");
   } <span class="branch-0 cbranch-no" title="branch not covered" >catch (error) {</span>
-<span class="cstat-no" title="statement not covered" >    next(error);</span>
+<span class="cstat-no" title="statement not covered" >    return next(error);</span>
 <span class="cstat-no" title="statement not covered" >  }</span>
 }
 &nbsp;
 async function deleteTag(req, res, next) {
   try {
     const { id } = req.params;
-    const searchTag = await TagModel.findOne({
-      where: { id },
-    });
+    const searchTag = await oneT(id);
     if (searchTag === null) {
-      const error = new Error("Tag not found");
+      const error = new Error("tag not found");
       error.statusCode = 404;
       return next(error);
     }
 &nbsp;
-    await TagModel.destroy({
-      where: { id },
-    });
+    deleteT(id);
     return res.json("tag deleted");
   } <span class="branch-0 cbranch-no" title="branch not covered" >catch (error) {</span>
 <span class="cstat-no" title="statement not covered" >    return next(error);</span>
@@ -264,11 +260,9 @@ async function deleteTag(req, res, next) {
 async function getOneTag(req, res, next) {
   try {
     const { id } = req.params;
-    const searchTag = await TagModel.findOne({
-      where: { id },
-    });
+    const searchTag = await oneT(id);
     if (searchTag === null) {
-      const error = new Error("Tag not found");
+      const error = new Error("tag not found");
       error.statusCode = 404;
       return next(error);
     }
@@ -286,7 +280,7 @@ module.exports = { getAllTags, insertTag, updateTag, deleteTag, getOneTag };
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Fri Jul 08 2022 02:43:40 GMT-0500 (hora estándar de Colombia)
+                at Fri Jul 08 2022 11:10:45 GMT-0500 (hora estándar de Colombia)
             </div>
         <script src="../../prettify.js"></script>
         <script>

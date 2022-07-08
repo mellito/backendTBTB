@@ -1,6 +1,6 @@
 const TagModel = require("../models/Tag");
 
-const allTags = async () => {
+const allT = async () => {
   const tags = await TagModel.findAll();
   return tags;
 };
@@ -9,7 +9,7 @@ const insertT = async (tag) => {
   await TagModel.create(tag);
 };
 
-const oneTag = async (id) => {
+const oneT = async (id) => {
   const tag = await TagModel.findOne({
     where: { id },
   });
@@ -28,4 +28,4 @@ const deleteT = async (id) => {
   });
 };
 
-module.exports = { allTags, insertT, oneTag, updateT, deleteT };
+module.exports = { allT, insertT, oneT, updateT, deleteT };

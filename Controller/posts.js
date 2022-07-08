@@ -1,8 +1,8 @@
-const PostModel = require("../models/Post");
+const { allP, insertP, oneP, updateP, deleteP } = require("../service/props");
 
 async function getAllPosts(req, res, next) {
   try {
-    const tags = await PostModel.findAll();
+    const tags = await allP();
     res.json(tags);
   } catch (error) {
     next(error);
@@ -11,7 +11,7 @@ async function getAllPosts(req, res, next) {
 
 async function insertPost(req, res, next) {
   try {
-    await PostModel.create(req.body);
+    insertP(req.body);
     res.status(201).json("post created");
   } catch (error) {
     next(error);
@@ -21,19 +21,14 @@ async function insertPost(req, res, next) {
 async function updatePost(req, res, next) {
   try {
     const { id } = req.params;
-    const searchPost = await PostModel.findOne({
-      where: { id },
-    });
+    const searchPost = await oneP(id);
     if (searchPost === null) {
       const error = new Error("post not found");
       error.statusCode = 404;
       return next(error);
     }
     const updatedData = { ...req.body, updatedAt: new Date() };
-
-    await PostModel.update(updatedData, {
-      where: { id },
-    });
+    await updateP(id, updatedData);
     return res.json("post updated");
   } catch (error) {
     return next(error);
@@ -43,18 +38,14 @@ async function updatePost(req, res, next) {
 async function deletePost(req, res, next) {
   try {
     const { id } = req.params;
-    const searchPost = await PostModel.findOne({
-      where: { id },
-    });
+    const searchPost = await oneP(id);
     if (searchPost === null) {
       const error = new Error("post not found");
       error.statusCode = 404;
       return next(error);
     }
 
-    await PostModel.destroy({
-      where: { id },
-    });
+    await deleteP(id);
     return res.json("post deleted");
   } catch (error) {
     return next(error);
@@ -64,9 +55,7 @@ async function deletePost(req, res, next) {
 async function getOnePost(req, res, next) {
   try {
     const { id } = req.params;
-    const searchPost = await PostModel.findOne({
-      where: { id },
-    });
+    const searchPost = await oneP(id);
     if (searchPost === null) {
       const error = new Error("post not found");
       error.statusCode = 404;
