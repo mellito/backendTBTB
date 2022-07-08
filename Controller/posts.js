@@ -12,7 +12,7 @@ async function getAllPosts(req, res, next) {
 async function insertPost(req, res, next) {
   try {
     await PostModel.create(req.body);
-    res.json("post created");
+    res.status(201).json("post created");
   } catch (error) {
     next(error);
   }
@@ -20,14 +20,23 @@ async function insertPost(req, res, next) {
 
 async function updatePost(req, res, next) {
   try {
-    const updatedData = { ...req.body, updatedAt: new Date() };
     const { id } = req.params;
+    const searchPost = await PostModel.findOne({
+      where: { id },
+    });
+    if (searchPost === null) {
+      const error = new Error("post not found");
+      error.statusCode = 404;
+      return next(error);
+    }
+    const updatedData = { ...req.body, updatedAt: new Date() };
+
     await PostModel.update(updatedData, {
       where: { id },
     });
-    res.json("post updated");
+    return res.json("post updated");
   } catch (error) {
-    next(error);
+    return next(error);
   }
 }
 

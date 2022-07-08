@@ -12,7 +12,7 @@ async function getAllTags(req, res, next) {
 async function insertTag(req, res, next) {
   try {
     await TagModel.create(req.body);
-    res.json("tag created");
+    res.status(201).json("tag created");
   } catch (error) {
     next(error);
   }
