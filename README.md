@@ -7,7 +7,7 @@ Esta api esta disenada en nodejs, express, con sequalize y mysql
 para correr este backend no esta demas recordar que tienes que ejecutar
 
 - npm install => para instalar las dependencias
-- npm run dev => para iniciar el servidor local con nodemon y ejercutarse luego de cada cambio
+- npm run dev => para iniciar el servidor local con nodemon y ejercutarse luego de cada cambios
 - npm run test => para ejecutar los test
 
 ## EndPoints
@@ -44,11 +44,15 @@ para usar variables de entorno se tiene que crear un archivo .env donde ingresas
 
 - MYSQL_USER= usuario de mysql (ejemplo 'root')
 - MYSQL_PASSWORD= password de mysql (ejemplo 'contrasena321')
-- MYSQL_DATABASE_NAME= nombre de la base de datos a conectar (ejemplo 'PRUEBA1')
+- MYSQL_DATABASE_NAME= nombre de la base de datos a conectar (ejemplo 'PRUEBA1') esta base de datos tiene que esta creada para funcionar
 - HOST=nombre del host en el que se realiza la prueba (ejemplo 'localhost')
 
 ## a mejorar
 
-- tengo que mejorar la construsccion de los test ya que me toco aprender muy rapido sequlize para pode usarlo en este backend, los test estan corriendo en la base de datos de produccion pero no deberia ser asi y usa los datos de los script creados en sql para que funcionen todos los test
+- tengo que mejorar la construcción de los test ya que me toco aprender muy rapido sequlize para poder usarlo en este backend, los test estan corriendo en la base de datos de produccion pero no deberia ser asi y usa los datos de los script creados en mysql para que funcionen todos los test
 
 - mejorar mi manejo en base de datos sql
+
+## a considerar
+
+- como use sequalize y su variante de mysql se debe tener mysql instalado y la base de datos debe estar creada para que se pueda conectar a esta y debe tener el mismo nombre
