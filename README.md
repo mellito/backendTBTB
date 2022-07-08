@@ -24,6 +24,19 @@ PUT api/posts/id actualiza los datos en el id correspondiente si el id no esta e
 
 DELETE api/posts/id elimina post correspondiente al id enviado si el id no esta en la base de datos enviara error
 
+### tags
+
+GET api/tags/ muestra todos los los tags
+
+GET api/tags/id muestra el tag correspondiente a el id en caso de que el id no se en cuentre arroja un error
+
+POST api/tags/ crea un tag con los datos enviados en el body si el cuerpo enviado esta vacio arrojara un error
+si el post tiene un title ya creado enviara un error y si los datos no son correspondientes a la tabla enviara un error
+
+PUT api/tags/id actualiza los datos en el id correspondiente si el id no esta en la base de datos enviara error
+
+DELETE api/tags/id elimina tag correspondiente al id enviado si el id no esta en la base de datos enviara error
+
 ## .env
 
 para usar variables de entorno se tiene que crear un archivo .env donde ingresas los siguientes datos
