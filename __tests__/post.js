@@ -6,8 +6,8 @@ const request = supertest(app);
 describe("tags endpoint", () => {
   it("should create a tag", async () => {
     const post = {
-      title: "Test4",
-      description_post: "making inset test 4",
+      title: "Test6",
+      description_post: "making insert test 6",
     };
     const response = await request.post("/api/posts").send(post);
     expect(response.status).toBe(201);
@@ -16,7 +16,7 @@ describe("tags endpoint", () => {
   it("should get all tags", async () => {
     const response = await request.get("/api/posts");
     expect(response.status).toBe(200);
-    expect(response.body.length).not.toBeLessThan(0);
+    expect(response.body.length).toBeGreaterThan(0);
   });
   it("should get a post", async () => {
     const response = await request.get("/api/posts/1");
@@ -29,8 +29,8 @@ describe("tags endpoint", () => {
   });
   it("should update a post", async () => {
     const post = {
-      title: "Test4 updated",
-      description_post: "making insert test 4 updated",
+      title: "Test2 updated",
+      description_post: "making insert test 2 updated",
     };
     const response = await request.put("/api/posts/2").send(post);
     expect(response.status).toBe(200);

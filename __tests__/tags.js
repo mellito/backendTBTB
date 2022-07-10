@@ -15,12 +15,12 @@ describe("tags endpoint", () => {
   it("should get all tags", async () => {
     const response = await request.get("/api/tags");
     expect(response.status).toBe(200);
-    expect(response.body.length).not.toBeLessThan(0);
+    expect(response.body.length).toBeGreaterThan(0);
   });
   it("should get a tag", async () => {
     const response = await request.get("/api/tags/1");
     expect(response.status).toBe(200);
-    expect(response.body.name_tag).toBe("comida");
+    expect(response.body.name_tag).toBe("tag1");
   });
   it("should not get a tag", async () => {
     const response = await request.get("/api/tags/100");
@@ -28,7 +28,7 @@ describe("tags endpoint", () => {
   });
   it("should update a tag", async () => {
     const tag = {
-      name_tag: "cine2",
+      name_tag: "tag2 updated",
     };
     const response = await request.put("/api/tags/2").send(tag);
     expect(response.status).toBe(200);
